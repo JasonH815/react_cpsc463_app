@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose} from 'redux';
-import rootReducer from './reducers/index'
-import thunkMiddleware from 'redux-thunk'
+import rootReducer from './reducers/index';
+import thunkMiddleware from 'redux-thunk';
 import registerServiceWorker from './registerServiceWorker';
 
 /**
@@ -21,7 +21,7 @@ function configureStore(preloadedState) {
   const enhancers = [middlewareEnhancer];
   const composedEnhancers = compose(...enhancers);
 
-  return createStore(rootReducer, preloadedState, composedEnhancers)
+  return createStore(rootReducer, preloadedState, composedEnhancers);
 }
 
 // call our store creator
