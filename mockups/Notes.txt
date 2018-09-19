@@ -1,0 +1,50 @@
+Components:
+  - app
+  - opponent
+  - player
+  - board
+  - normal hand
+  - tied hand
+
+State:
+	- game Type
+  - war.Player Deck
+  - war.Opponent Deck
+	- war.playerReady
+	- war.playerHand
+	- war.oppenentRead
+	- war.oppenentHand
+
+
+Feathers Layer:
+Deck Service
+War Service
+Game Service
+Player Service
+Chat Service
+
+
+
+Date Modelling
+
+//overall structure
+Game
+- game
+- players
+  -decks
+- decks
+
+//breakout
+Deck
+- _id
+- playerId
+- GameId
+
+Game
+- _id
+- type
+
+Players
+- _id
+- gameId
+
