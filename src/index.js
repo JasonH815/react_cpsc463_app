@@ -25,12 +25,10 @@ function configureStore(preloadedState) {
 }
 
 // call our store creator
-const store = configureStore();
+// const store = configureStore();
 
 // render the app wrapped with the store provider
 ReactDOM.render((
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <App/>
 ), document.getElementById('root'));
 registerServiceWorker();
