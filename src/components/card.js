@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 // import cardBack from '../../public/PNG/Cards/cardBack_blue1.png';
 
+export default function(props){
+
+  return ()
+}
+
 class Card extends Component {
   constructor(props){
     super(props);
