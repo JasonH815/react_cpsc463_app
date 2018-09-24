@@ -1,6 +1,6 @@
-// Initializes the `game` service on path `/game`
+// Initializes the `player` service on path `/player`
 const createService = require('feathers-mongodb');
-const hooks = require('./game.hooks');
+const hooks = require('./players.hooks');
 
 module.exports = function (app) {
   const paginate = app.get('paginate');
@@ -8,13 +8,13 @@ module.exports = function (app) {
   const options = { paginate };
 
   // Initialize our service with any options it requires
-  app.use('/game', createService(options));
+  app.use('/players', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('game');
+  const service = app.service('players');
 
   mongoClient.then(db => {
-    service.Model = db.collection('game');
+    service.Model = db.collection('players');
   });
 
   service.hooks(hooks);
