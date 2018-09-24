@@ -23,3 +23,6 @@ yarn-error.log*
 
 #ide
 .idea
+
+#mongo database
+api/data/mongo
