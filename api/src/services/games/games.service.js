@@ -7,10 +7,12 @@ class GamesService extends MongoService {
     this.app = app;
   }
   async remove(id, params){
+    const decks = await this.app.service('decks').remove(id, params);
     const cards = await this.app.service('cards').remove(id, params);
     const players = await this.app.service('players').remove(id, params);
     const games = await super.remove(id, params);
     return {
+      decks,
       cards,
       players,
       games
