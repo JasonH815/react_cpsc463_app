@@ -9,6 +9,7 @@ api/node_modules
 
 # production
 /build
+docker/prod.env
 
 # misc
 .DS_Store
