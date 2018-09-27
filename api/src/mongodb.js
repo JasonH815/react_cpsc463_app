@@ -1,11 +1,13 @@
 const url = require('url');
 const MongoClient = require('mongodb').MongoClient;
+const logger = require('./logger');
 
 module.exports = function (app) {
-  const config = app.get('mongodb');
-  const dbName = url.parse(config).path.substring(1);
-  const promise = MongoClient.connect(config).then(client => {
-    console.log('connected to mongodb');
+  const mongoConfig = app.get('mongodb');
+  const {url:mongoUrl} = mongoConfig;
+  const dbName = url.parse(mongoUrl).path.substring(1);
+  const promise = MongoClient.connect(mongoUrl, {auth: mongoConfig}).then(client => {
+    logger.info(`connected to mongodb at ${mongoUrl}`);
     // For mongodb <= 2.2
     if(client.collection) {
       return client;
@@ -14,7 +16,7 @@ module.exports = function (app) {
     return client.db(dbName);
   })
     .catch(err => {
-      console.log('Failed to connect to mongo: ', err);
+      logger.error('Failed to connect to mongo: ', err);
     });
 
   app.set('mongoClient', promise);
