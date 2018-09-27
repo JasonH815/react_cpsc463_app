@@ -5,7 +5,7 @@ const logger = require('./logger');
 module.exports = function (app) {
   const mongoConfig = app.get('mongodb');
   const {url:mongoUrl} = mongoConfig;
-  logger.info(mongoConfig);
+  logger.info(JSON.stringify(mongoConfig));
   const dbName = url.parse(mongoUrl).path.substring(1);
   const promise = MongoClient.connect(mongoUrl, {auth: mongoConfig}).then(client => {
     logger.info(`connected to mongodb at ${mongoUrl}`);
