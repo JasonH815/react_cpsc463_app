@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api:
+    image: jasonh815/cardcounterz-api
+    build:
+      context: ../api
+      dockerfile: api/Dockerfile
+    ports:
+      - "3030:3030"
+  mongo:
+    image: "mongo:4"
+    ports:
+      - "27017:27017"
+    volumes:
+      - ../api/data/mongo:/data/db

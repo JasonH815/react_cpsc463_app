@@ -6,5 +6,5 @@
     "default": 10,
     "max": 50
   },
-  "mongodb": "mongodb://jasonhellwig.me:27017/cardcounterz"
+  "mongodb": "mongodb://mongo:27017/cardcounterz"
 }

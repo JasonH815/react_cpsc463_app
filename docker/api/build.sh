@@ -7,4 +7,3 @@ echo ${DIR}
 
 docker build --tag jasonh815/cardcounterz-api --file Dockerfile ../../api/
 docker push jasonh815/cardcounterz-api
-#docker run --rm -ti -p 3030:3030 --name cardcounterz cardcounterz
