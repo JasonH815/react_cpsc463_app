@@ -4,6 +4,8 @@ services:
     image: jasonh815/cardcounterz-api
     build:
       context: ../api
+    depends_on:
+      - mongo
     restart: always
     ports:
       - "3030:3030"
