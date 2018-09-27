@@ -4,7 +4,6 @@ services:
     image: jasonh815/cardcounterz-api
     build:
       context: ../api
-      dockerfile: api/Dockerfile
     ports:
       - "3030:3030"
   mongo:

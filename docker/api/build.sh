@@ -5,5 +5,5 @@ cd ${DIR}
 
 echo ${DIR}
 
-docker build --tag jasonh815/cardcounterz-api --file Dockerfile ../../api/
+docker build --tag jasonh815/cardcounterz-api ../../api/
 docker push jasonh815/cardcounterz-api
