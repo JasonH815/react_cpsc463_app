@@ -1,36 +1,46 @@
 import React, { Component } from 'react';
-// import cardBack from '../../public/PNG/Cards/cardBack_blue1.png';
+import cardBack from '../media/png/Cards/cardBack_blue1.png';
+import axios from 'axios';
 
-export default function(props){
-
-  return ()
-}
 
 class Card extends Component {
   constructor(props){
     super(props);
-
-    this.text = props.text;
     this.state = {
+      cardCount: 0,
       clickCount: 0
     };
   }
 
   handleClick(){
     this.setState({clickCount: this.state.clickCount + 1});
+
+    axios.post('http://jasonhellwig.me:3030/decks', {
+      playerId : "1",
+      gameId : "1",
+      count: 1,
+      shuffle : true
+    })
+
+    .then(function(response) {
+      console.log(response);
+      this.setState({cardCount: response.data.cards.length});
+    }.bind(this))
+
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 
   render(){
     return (
       <div>
-        <div>Hello {this.text}  React version is {0}{this.props.children}</div>
-        <img src="PNG/Cards/cardBack_blue1.png" onClick={this.handleClick.bind(this)}/>
-        {this.state.clickCount}
+        <img src={cardBack} onClick={this.handleClick.bind(this)}/>
+         clicked = {this.state.clickCount}
+         card count = {this.state.cardCount}
       </div>
     );
   }
 
 }
 export default Card;
-
-
