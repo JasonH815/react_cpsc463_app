@@ -2,6 +2,7 @@
 const hooks = require('./decks.hooks');
 const _ = require('lodash');
 const { Service: MongoService } = require('feathers-mongodb');
+const errors = require('@feathersjs/errors');
 
 class DecksService extends MongoService{
   async setup(app) {
@@ -17,6 +18,12 @@ class DecksService extends MongoService{
    */
   async create(data){
     const {count, shuffle, playerId, gameId} = data;
+    const countInt = parseInt(count);
+
+    if(!countInt || countInt > 10) {
+      return errors.BadRequest(`Too many decks: ${countInt}. Deck count must be < 10`);
+    }
+
     const cardsService = this.app.service('cards');
     const cards = _.flatMap(
       _.range(count),
