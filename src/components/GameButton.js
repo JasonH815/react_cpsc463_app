@@ -39,11 +39,6 @@ class GameButton extends Component {
       })
 
     })
-
-
-
-
-
 }
 
   render() {
