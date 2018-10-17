@@ -35,9 +35,23 @@ class Card extends Component {
   render(){
     return (
       <div>
+      <p class="board-top">
         <img src={cardBack} onClick={this.handleClick.bind(this)}/>
-         clicked = {this.state.clickCount}
-         card count = {this.state.cardCount}
+        {/*clicked = {this.state.clickCount}
+        card count = {this.state.cardCount} */}
+      </p>
+      <p class="board-middle">
+        <img src={cardBack} onClick={this.handleClick.bind(this)}/>
+        {/*clicked = {this.state.clickCount}
+        card count = {this.state.cardCount} */}
+         <img src={cardBack} onClick={this.handleClick.bind(this)}/>
+
+      </p>
+      <p class="board-bottom">
+        <img src={cardBack} onClick={this.handleClick.bind(this)}/>
+        {/*clicked = {this.state.clickCount}
+        card count = {this.state.cardCount} */}
+      </p>
       </div>
     );
   }
