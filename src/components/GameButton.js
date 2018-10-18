@@ -14,9 +14,9 @@ class GameButton extends Component {
 
   handleClick() {
     this.setState({clickCount: this.state.clickCount + 1});
-    let that = this;
+    //et that = this;
     axios.delete('http://jasonhellwig.me:3030/decks')
-    .then(function(res) {
+    .then(res=> {
       console.log(res);
       axios.post('http://jasonhellwig.me:3030/decks', {
         playerId : "1",
@@ -24,7 +24,7 @@ class GameButton extends Component {
         count: 1,
         shuffle : true
       })
-      .then(function(res) {
+      .then(res => {
         console.log(res);
         axios.post('http://jasonhellwig.me:3030/decks', {
           playerId : "2",
@@ -32,10 +32,10 @@ class GameButton extends Component {
           count: 1,
           shuffle : true
         })
-        .then(function(res) {
+        .then(res=> {
           console.log(res);
-          that.setState({cardCount: res.data.cards.length});
-        }.bind(that))
+          this.setState({cardCount: res.data.cards.length});
+        })
       })
 
     })
