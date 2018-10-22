@@ -12,13 +12,13 @@ class App extends Component {
     return (
       <div>
         <div className="Opponent">
-          <Card fileName="/cardBack_green1.png"/>
+          <Card fileName="/cardBack_green4.png"/>
         </div>
 
         <Board playerCard={playerCard} opponentCard={opponentCard} />
 
         <div className="Player">
-          <Card fileName="/cardBack_blue1.png"/>
+          <Card fileName="/cardBack_blue4.png"/>
         </div>
       </div>
 
