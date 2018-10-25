@@ -14,7 +14,7 @@ class GameButton extends Component {
 
   handleClick() {
     this.setState({clickCount: this.state.clickCount + 1});
-    //et that = this;
+    //let that = this;
     axios.delete('http://jasonhellwig.me:3030/decks')
     .then(res=> {
       console.log(res);

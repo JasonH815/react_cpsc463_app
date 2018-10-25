@@ -7,7 +7,7 @@ class Card extends Component {
   }
 
   render() {
-    const fileLocation = '/media/png/Cards';
+    const fileLocation = '/media/png/Cards/';
     const {card, fileName} = this.props;
 
     if (fileName) {
