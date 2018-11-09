@@ -21,7 +21,7 @@ class DecksService extends MongoService{
     const countInt = parseInt(count);
 
     if(!countInt || countInt > 10) {
-      return errors.BadRequest(`Too many decks: ${countInt}. Deck count must be < 10`);
+      throw errors.BadRequest(`Too many decks: ${countInt}. Deck count must be < 10`);
     }
 
     const cardsService = this.app.service('cards');
