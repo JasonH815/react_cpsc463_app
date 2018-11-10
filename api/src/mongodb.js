@@ -6,7 +6,9 @@ module.exports = function (app) {
   const mongoConfig = app.get('mongodb');
   const {url:mongoUrl} = mongoConfig;
   const dbName = url.parse(mongoUrl).path.substring(1);
-  const promise = MongoClient.connect(mongoUrl, {auth: mongoConfig}).then(client => {
+  const mongoOptions = mongoConfig.authEnabled === 'TRUE'? {auth: mongoConfig} : null;
+  logger.info(`connecting to mongo with the following options: ${mongoOptions}`);
+  const promise = MongoClient.connect(mongoUrl, mongoOptions).then(client => {
     logger.info(`connected to mongodb at ${mongoUrl}`);
     // For mongodb <= 2.2
     if(client.collection) {
