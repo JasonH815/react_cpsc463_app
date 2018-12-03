@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 
 class Card extends Component {
 
-  getFileName({rank, suit}) {
+  static propTypes = {
+    card: PropTypes.shape({
+      rank: PropTypes.string,
+      suit: PropTypes.string
+    }),
+    fileName: PropTypes.string
+  };
+
+  static getFileName({rank, suit}) {
     return `/card${suit}s${rank}.png`;
   }
 
@@ -14,7 +23,7 @@ class Card extends Component {
     if (fileName) {
       return (<img src={fileLocation + fileName} className="card" alt="card"/>);
     } else {
-      return (<img src={fileLocation + this.getFileName(card)} className="card" alt="card"/>);
+      return (<img src={fileLocation + Card.getFileName(card)} className="card" alt="card"/>);
     }
 
   }
