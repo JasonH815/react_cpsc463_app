@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Card from './Card';
-import GameButton from './GameButton';
-import Board from './Board';
+import Card from './card';
+//import GameButton from './game-button';
+import Board from './board';
 import axios from 'axios';
 import Promise from 'bluebird';
 
@@ -11,37 +11,37 @@ function getData(response) {
 
 class Game extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        player: null,
-        opponent: null,
-        game: null,
-        playerDeck: null,
-        opponentDeck: null
-      }
+    super(props);
+    this.state = {
+      player: null,
+      opponent: null,
+      game: null,
+      playerDeck: null,
+      opponentDeck: null
+    };
   }
 
   createGame() {
     //create 2 players
     Promise.all([
-        axios.post('http://jasonhellwig.me:3030/players').then(getData),
-        axios.post('http://jasonhellwig.me:3030/players').then(getData)
-      ])
+      axios.post('http://jasonhellwig.me:3030/players').then(getData),
+      axios.post('http://jasonhellwig.me:3030/players').then(getData)
+    ])
       .then(([player,opponent]) => {
-        this.setState({player, opponent})
-        console.log('player = ', player)
-        console.log('opponent = ', opponent)
+        this.setState({player, opponent});
+        console.log('player = ', player);
+        console.log('opponent = ', opponent);
       })
     //assign the players to a game
       .then(() => {
         return axios.post('http://jasonhellwig.me:3030/games', {
           playerId: this.state.player._id,
           opponentId: this.state.opponent._id,
-        }).then(getData)
+        }).then(getData);
       })
       .then(game => {
-        console.log('game = ', game)
-        this.setState({game})
+        console.log('game = ', game);
+        this.setState({game});
         //create decks for each player given gameId and playerIds
         const deckRequests = [
           axios.post('http://jasonhellwig.me:3030/decks', {
@@ -56,16 +56,16 @@ class Game extends Component {
             count: 1,
             shuffle : true
           }).then(getData)
-        ]
-        return Promise.all(deckRequests)
+        ];
+        return Promise.all(deckRequests);
       })
-    .then(([playerDeck, opponentDeck]) => {
-      this.setState({playerDeck, opponentDeck})
-      console.log('deck ', playerDeck)
-    })
+      .then(([playerDeck, opponentDeck]) => {
+        this.setState({playerDeck, opponentDeck});
+        console.log('deck ', playerDeck);
+      });
   }
   resetGame() {
-    axios.delete(`http://jasonhellwig.me:3030/games/${this.state.game._id}`)
+    axios.delete(`http://jasonhellwig.me:3030/games/${this.state.game._id}`);
     this.createGame();
   }
 
@@ -75,8 +75,8 @@ class Game extends Component {
 
 
   render() {
-    const playerCard = {rank : "9", suit : "spade"};
-    const opponentCard = {rank : "a", suit : "heart"};
+    const playerCard = {rank : '9', suit : 'spade'};
+    const opponentCard = {rank : 'a', suit : 'heart'};
 
     return (
       <div>

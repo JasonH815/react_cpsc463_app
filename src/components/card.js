@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Card extends Component {
 
   getFileName({rank, suit}) {
@@ -11,9 +12,9 @@ class Card extends Component {
     const {card, fileName} = this.props;
 
     if (fileName) {
-      return (<img src={fileLocation + fileName} className="card"/>);
+      return (<img src={fileLocation + fileName} className="card" alt="card"/>);
     } else {
-      return (<img src={fileLocation + this.getFileName(card)} className="card"/>);
+      return (<img src={fileLocation + this.getFileName(card)} className="card" alt="card"/>);
     }
 
   }
