@@ -7,9 +7,6 @@
     "max": 2000
   },
   "mongodb": {
-    "url": "mongodb://mongo:27017/cardcounterz",
-    "user": "MONGO_USER",
-    "password": "MONGO_PASSWORD",
-    "authEnabled": "AUTH_ENABLED"
+    "url": "mongodb://localhost:27017/cardcounterz"
   }
 }
