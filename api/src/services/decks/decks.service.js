@@ -2,7 +2,7 @@
 const hooks = require('./decks.hooks');
 const _ = require('lodash');
 const { Service: MongoService } = require('feathers-mongodb');
-const errors = require('@feathersjs/errors');
+const Promise = require('bluebird');
 
 class DecksService extends MongoService{
   async setup(app) {
@@ -12,17 +12,27 @@ class DecksService extends MongoService{
   }
 
   /**
-   * constructs a deck of cards and saves them using the card service
+   * constructs a deck of cards and saves them using the card service.
+   * Handles creation of one or more decks
    * @param data
    * @return {void|*}
    */
   async create(data){
-    const {count, shuffle, playerId, gameId} = data;
-    const countInt = parseInt(count);
-
-    if(!countInt || countInt > 10) {
-      throw errors.BadRequest(`Too many decks: ${countInt}. Deck count must be < 10`);
+    if (Array.isArray(data)){
+      return Promise.map(data, this._createDeck.bind(this));
+    } else {
+      return this._createDeck(data);
     }
+  }
+
+  /**
+   * Method to create deck(s) given an object of API input
+   * @param data
+   * @return {Promise<{cards, deck}>}
+   * @private
+   */
+  async _createDeck(data){
+    const {count, shuffle, playerId, gameId} = data;
 
     const cardsService = this.app.service('cards');
     const cards = _.flatMap(
