@@ -95,12 +95,13 @@ class DecksService extends MongoService{
   _make({gameId, playerId, deckNumber}) {
     const {suits, ranks} = this;
     return _.flatMap(_.values(suits), suit => {
-      return _.values(ranks).map(rank => {
+      return _.values(ranks).map(({label, rank}) => {
         return {
           gameId,
           playerId,
           suit,
-          rank,
+          rank: label,
+          rankValue: rank,
           deckNumber
         };
       });

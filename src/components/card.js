@@ -8,6 +8,7 @@ class Card extends Component {
   static propTypes = {
     card: PropTypes.shape({
       rank: PropTypes.string,
+      rankValue: PropTypes.number,
       suit: PropTypes.string
     }),
     fileName: PropTypes.string

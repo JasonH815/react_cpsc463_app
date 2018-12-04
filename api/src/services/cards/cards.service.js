@@ -2,17 +2,19 @@
 const createService = require('feathers-mongodb');
 const hooks = require('./cards.hooks');
 const _ = require('lodash');
+const _rankValues = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+const _suitValues = ['heart', 'diamond', 'club', 'spade'];
 
 //Store the ranks and suits as objects to support dot notation
 const RANKS = _.reduce(
-  ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
-  (obj, rank) => {
-    return {...obj, [rank.toUpperCase()]:rank};
+  _.map(_rankValues, (label, idx) => { return {label, idx}; }),
+  (obj, {label, idx}) => {
+    return {...obj, [label.toUpperCase()]:{label, rank: idx}};
   },
   {});
 
 const SUITS = _.reduce(
-  ['heart', 'diamond', 'club', 'spade'],
+  _suitValues,
   (obj, suit) => {
     return {...obj, [suit.toUpperCase()]:suit};
   },

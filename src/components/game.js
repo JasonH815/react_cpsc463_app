@@ -26,7 +26,6 @@ class Game extends Component {
    * Conditionally renders the game board
    */
   renderBoard() {
-    console.log('state: ', this.state);
     if(this.state.gameStarted) {
       const playerCard = this.state.player.deck.currentCard;
       const opponentCard = this.state.opponent.deck.currentCard;
@@ -63,21 +62,21 @@ class Game extends Component {
   render() {
     return (
       <div>
-        <div className="container-fluid justify-content-end d-flex flex-column" style={{height: '93vh'}}>
+        <div className="container justify-content-end d-flex flex-column" style={{height: '93vh'}}>
           <div className="pt-3 row justify-content-center">
-            <div className="col-1">
+            <div className="col text-center">
               <div className="Opponent">
                 <Card fileName="cardBack_green4.png"/>
               </div>
             </div>
           </div>
-          <div className="mt-auto row justify-content-center">
-            <div className="col-6 text-center">
+          <div className="pr-5 pl-5 mt-auto row justify-content-center">
+            <div className="col text-center">
               {this.renderBoard()}
             </div>
           </div>
           <div className="row mt-auto justify-content-center mb-2">
-            <div className="col-1">
+            <div className="col text-center">
               <div className="Player">
                 <Card fileName="cardBack_blue4.png"/>
               </div>
