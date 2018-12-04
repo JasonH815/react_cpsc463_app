@@ -5,6 +5,10 @@ import ApiService from './api';
  */
 class GameService {
 
+  /**
+   * Creates a new game using the API
+   * @return {Promise<{game, opponent: {deck: *, player: *}, player: {deck: *, player: *}}>}
+   */
   static async createGame() {
     const { post, players, decks, games } = ApiService;
     // create players
@@ -41,6 +45,10 @@ class GameService {
     };
   }
 
+  /**
+   * Restarts the game with a fresh deck. Also clean up the old game
+   * @param game
+   */
   static resetGame(game) {
     // delete the existing game if it exists
     if(game) {
@@ -49,8 +57,12 @@ class GameService {
     return GameService.createGame();
   }
 
+  /**
+   * Get the next card in the deck using the API
+   * @param deck
+   */
   static async drawCard(deck) {
-    return ApiService.post(`${ApiService.decks()}/${deck._id}/next`);
+    return ApiService.put(`${ApiService.decks()}/${deck._id}`, {method: 'NEXT'});
   }
 }
 
