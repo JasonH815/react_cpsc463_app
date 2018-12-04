@@ -16,7 +16,11 @@ class Game extends Component {
     };
   }
 
-
+  // TODO deck has a currentCard index
+  // TODO implement next card method on backend
+  // TODO add unit test w/ mocha
+  // TODO call selenium from node
+  // TODO add unit test using selenium
 
 
   render() {
