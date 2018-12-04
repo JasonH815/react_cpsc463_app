@@ -1,6 +1,6 @@
 {
-  "host": "cardcounterz-api-app.feathersjs.com",
-  "port": "PORT",
+  "host": "jasonhellwig.me",
+  "port": 3030,
   "mongodb": {
     "url": "mongodb://mongo:27017/cardcounterz",
     "user": "MONGO_USER",
