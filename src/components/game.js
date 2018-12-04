@@ -14,12 +14,10 @@ class Game extends Component {
     };
   }
 
-  // TODO game board formatting
-  // TODO display the winning high-card
-  // TODO hook up nextCard button
   // TODO add unit test w/ mocha
   // TODO call selenium from node
   // TODO add unit test using selenium
+  // TODO Display message when out of cards
 
 
   /**
@@ -56,6 +54,22 @@ class Game extends Component {
       }
   }
 
+  async handleNextCard(event) {
+    if(this.state.gameStarted) {
+      const {player, opponent} = this.state;
+      const playerDeck = await GameService.drawCard(player.deck);
+      const opponentDeck = await GameService.drawCard(opponent.deck);
+      this.setState({
+        player: {
+          deck: playerDeck
+        },
+        opponent: {
+          deck: opponentDeck
+        }
+      })
+    }
+  }
+
   /**
    * JSX
    */
@@ -65,7 +79,7 @@ class Game extends Component {
         <div className="container justify-content-end d-flex flex-column" style={{height: '93vh'}}>
           <div className="pt-3 row justify-content-center">
             <div className="col text-center">
-              <div className="Opponent">
+              <div className="d-flex justify-content-center align-content-end">
                 <Card fileName="cardBack_green4.png"/>
               </div>
             </div>
@@ -77,8 +91,10 @@ class Game extends Component {
           </div>
           <div className="row mt-auto justify-content-center mb-2">
             <div className="col text-center">
-              <div className="Player">
-                <Card fileName="cardBack_blue4.png"/>
+              <div className="d-flex justify-content-center align-content-end">
+                <div onClick={this.handleNextCard.bind(this)}>
+                  <Card fileName="cardBack_blue4.png"/>
+                </div>
               </div>
             </div>
           </div>

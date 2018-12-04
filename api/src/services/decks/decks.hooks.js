@@ -33,10 +33,10 @@ function validateDeckUpdate(context) {
   const {method} = context.data;
   const {updateMethods} = context.service;
   const validMethods = Object.keys(updateMethods).map(k => updateMethods[k]);
-  if(!method || typeof method !== 'string' || !validMethods.find(method)) {
+  if(!method || typeof method !== 'string' || !validMethods.find(m => m === method)) {
     throw new BadRequest('Missing "method" field for deck update')
   }
-  if(!validMethods.find(method)) {
+  if(!validMethods.find(m => m === method)) {
     throw new NotImplemented(`Invalid method "${method}"`)
   }
 
