@@ -8,7 +8,7 @@ class GameService {
   static async createGame() {
     const { post, players, decks, games } = ApiService;
     // create players
-    const {player, opponent} = await post(players(), [{name: 'player'}, {name: 'opponent'}]);
+    const [player, opponent] = await post(players(), [{name: 'player'}, {name: 'opponent'}]);
     console.log('player: ', player);
     console.log('opponent: ', opponent);
 
@@ -20,9 +20,9 @@ class GameService {
     console.log('game: ', game);
 
     //create decks
-    const {playerDeck, opponentDeck} = await post(decks(), [
-      {playerId: player._id, gameId: game._id},
-      {playerId: opponent._id, gameId: game._id}
+    const [playerDeck, opponentDeck] = await post(decks(), [
+      {playerId: player._id, gameId: game._id, count: 1, shuffle: true},
+      {playerId: opponent._id, gameId: game._id, count: 1, shuffle: true}
     ]);
     console.log('playerDeck: ', playerDeck);
     console.log('opponentDeck: ', opponentDeck);

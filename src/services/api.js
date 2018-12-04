@@ -28,18 +28,27 @@ class ApiService {
     return ApiService.getService(ApiService.services.games);
   }
 
-  static getData(resp){ return resp.data; }
+  static getData(resp){
+    console.log('API RESPONSE: ', resp);
+    return resp.data;
+  }
 
   static post(url, data) {
-    return axios.post(url, data).then(ApiService.getData);
+    return axios.post(url, data).catch(ApiService.handleErrors).then(ApiService.getData);
   }
 
   static get(url) {
-    return axios.get(url).then(ApiService.getData);
+    return axios.get(url).catch(ApiService.handleErrors).then(ApiService.getData);
   }
 
   static delete(url){
-    return axios.delete(url).then(ApiService.getData);
+    return axios.delete(url).catch(ApiService.handleErrors).then(ApiService.getData);
+  }
+
+  static handleErrors(err) {
+    const {code, name, message} = err.response.data;
+    console.error(`API Error: ${code} ${name} - ${message}`);
+    throw err;
   }
 
 }

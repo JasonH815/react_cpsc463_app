@@ -2,17 +2,19 @@ const {BadRequest} = require('@feathersjs/errors');
 
 const MAX_DECKS = 5;
 
-function validateMaxDecks(context) {
-  function checkMaxDecks(n){
-    if (Number.isNaN(n) || parseInt(n) > MAX_DECKS) {
+function validateDeckCount(context) {
+  function checkDeckCount(n){
+    if (!n || Number.isNaN(n)) {
+      throw new BadRequest('Must send a nonzero "count" property for number of decks to create');
+    } if(n > MAX_DECKS) {
       throw new BadRequest(`Must create no more than ${MAX_DECKS} at a time`);
     }
   }
 
   if (Array.isArray(context.data)) {
-    context.data.forEach(data => checkMaxDecks(data.count));
+    context.data.forEach(data => checkDeckCount(data.count));
   } else {
-    checkMaxDecks(context.data.count);
+    checkDeckCount(context.data.count);
   }
   return context;
 }
@@ -24,7 +26,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [validateMaxDecks],
+    create: [validateDeckCount],
     update: [],
     patch: [],
     remove: []

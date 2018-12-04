@@ -19,7 +19,7 @@ class DecksService extends MongoService{
    */
   async create(data){
     if (Array.isArray(data)){
-      return Promise.map(data, this._createDeck.bind(this));
+      return Promise.mapSeries(data, this._createDeck.bind(this)); // order should be preserved
     } else {
       return this._createDeck(data);
     }
