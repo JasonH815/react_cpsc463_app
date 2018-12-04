@@ -28,10 +28,7 @@ class ApiService {
     return ApiService.getService(ApiService.services.games);
   }
 
-  static getData(resp){
-    console.log('API RESPONSE: ', resp);
-    return resp.data;
-  }
+  static getData(resp){ return resp.data; }
 
   static post(url, data) {
     return axios.post(url, data).catch(ApiService.handleErrors).then(ApiService.getData);
