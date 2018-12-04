@@ -22,9 +22,9 @@ class Card extends Component {
     const {card, fileName} = this.props;
 
     if (fileName) {
-      return (<img src={fileLocation + fileName} className="card" alt="card"/>);
+      return (<img src={fileLocation + fileName} alt="card"/>);
     } else {
-      return (<img src={fileLocation + Card.getFileName(card)} className="card" alt="card"/>);
+      return (<img src={fileLocation + Card.getFileName(card)} alt="card"/>);
     }
 
   }

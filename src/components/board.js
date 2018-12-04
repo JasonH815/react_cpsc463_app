@@ -19,7 +19,7 @@ class Board extends Component {
     const {playerCard , opponentCard} = this.props;
     console.log('player card: ', playerCard);
     return(
-      <div className="Board">
+      <div>
         <Card card={playerCard}/>
         <Card card={opponentCard}/>
       </div>
