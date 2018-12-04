@@ -11,15 +11,13 @@ class Game extends Component {
       player: null,
       opponent: null,
       game: null,
-      playerDeck: null,
-      opponentDeck: null
+      gameStarted: false
     };
   }
 
-  // TODO hook add new game/reset buttons
-  // TODO hook up decks/cards to game board
-  // TODO hook up nextCard button
+  // TODO game board formatting
   // TODO display the winning high-card
+  // TODO hook up nextCard button
   // TODO add unit test w/ mocha
   // TODO call selenium from node
   // TODO add unit test using selenium
@@ -31,24 +29,43 @@ class Game extends Component {
    * @param opponentCard
    * @return {*}
    */
-  static renderBoard(playerCard, opponentCard) {
-    if(playerCard && opponentCard) {
+  renderBoard() {
+    console.log('state: ', this.state);
+    if(this.state.gameStarted) {
+      const playerCard = this.state.player.deck.currentCard;
+      const opponentCard = this.state.opponent.deck.currentCard;
       return <Board playerCard={playerCard} opponentCard={opponentCard} />
     } else {
       return <p>Start a new game to start playing!</p>
     }
   }
 
+  /**
+   * Button and Handler for starting and resetting games
+   * @return {*}
+   */
+  renderStartOrRestButton() {
+      async function handleClick(){
+        const {player, opponent, game} = await GameService.resetGame(this.state.game);
+        this.setState({
+          gameStarted: true,
+          player,
+          opponent,
+          game
+        })
+      }
+
+      if(!this.state.gameStarted) {
+        return <button type="button" className="btn btn-success" onClick={handleClick.bind(this)}>Start Game</button>
+      } else {
+        return <button type="button" className="btn btn-warning" onClick={handleClick.bind(this)}>Reset</button>
+      }
+  }
 
   render() {
-    const playerCard = null;
-    const opponentCard = null;
-    // const playerCard = {rank : '9', suit : 'spade'};
-    // const opponentCard = {rank : 'a', suit : 'heart'};
-
     return (
       <div>
-        <div className="container-fluid justify-content-end d-flex flex-column" style={{height: '95vh'}}>
+        <div className="container-fluid justify-content-end d-flex flex-column" style={{height: '93vh'}}>
           <div className="pt-3 row justify-content-center">
             <div className="col-1">
               <div className="Opponent">
@@ -58,19 +75,19 @@ class Game extends Component {
           </div>
           <div className="mt-auto row justify-content-center">
             <div className="col-6 text-center">
-              {Game.renderBoard(playerCard, opponentCard)}
+              {this.renderBoard()}
             </div>
           </div>
-          <div className="row mt-auto justify-content-center mb-4">
+          <div className="row mt-auto justify-content-center mb-2">
             <div className="col-1">
-              <div className="Player" onClick={GameService.createGame.bind(this)}>
+              <div className="Player">
                 <Card fileName="cardBack_blue4.png"/>
               </div>
             </div>
           </div>
           <div className="row fixed-bottom bg-dark">
             <div className="col pl-4 p-2">
-              <button type="button" className="btn btn-danger">Reset</button>
+              {this.renderStartOrRestButton()}
             </div>
           </div>
         </div>
