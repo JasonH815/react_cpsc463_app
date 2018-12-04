@@ -9,6 +9,9 @@ class DecksService extends MongoService{
     this.app = app;
     this.suits = await app.service('cards/suits').find();
     this.ranks = await app.service('cards/ranks').find();
+    this.updateMethods = {
+      NEXT: 'NEXT'
+    }
   }
 
   /**
@@ -26,6 +29,35 @@ class DecksService extends MongoService{
   }
 
   /**
+   * Handles PUT requests to a deck object
+   * @param id
+   * @param data
+   * @param params
+   * @return {Promise<void>}
+   */
+  async update(id, data, params) {
+    const {method} = data;
+    const updateMethods = this.updateMethods;
+    switch (method) {
+      case updateMethods.NEXT: return this._nextCard(id, data, params);
+    }
+  }
+
+  /**
+   * returns the next card of the deck and updates the deck
+   * @param id
+   * @param data
+   * @param params
+   */
+  async _nextCard(id, data, params) {
+    const cardsService = this.app.service('cards');
+    const deck = data.deck;
+    const currentIndex = deck.currentIndex + 1;
+    const currentCard = await cardsService.get(deck.cards[currentIndex]);
+    return this.patch(id, {currentIndex, currentCard})
+  }
+
+  /**
    * Method to create deck(s) given an object of API input
    * @param data
    * @return {Promise<{cards, deck}>}
@@ -40,16 +72,16 @@ class DecksService extends MongoService{
       deckNumber => this._make({...data, deckNumber}));
     let createdCards = await cardsService.create(cards);
     createdCards = shuffle? _.shuffle(createdCards): createdCards;
+    createdCards = createdCards.map(card => card._id);
+    const currentIndex = 0;
     const deck = {
       playerId,
       gameId,
-      deck: createdCards.map(card => card._id)
-    };
-    const createdDeck = await super.create(deck);
-    return {
       cards: createdCards,
-      deck: createdDeck
+      currentIndex,
+      currentCard: await cardsService.get(createdCards[currentIndex])
     };
+    return super.create(deck);
   }
 
   /**
