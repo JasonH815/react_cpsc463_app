@@ -1,6 +1,9 @@
 import axios from 'axios';
 import config from '../config';
 
+/**
+ * Service to standardize requests to the API
+ */
 class ApiService {
 
   static services = config.api.services;
@@ -13,7 +16,6 @@ class ApiService {
   static getService(service){
     return ApiService.getBase() + service;
   }
-
 
   static players() {
     return ApiService.getService(ApiService.services.players);
@@ -42,12 +44,15 @@ class ApiService {
     return axios.delete(url).catch(ApiService.handleErrors).then(ApiService.getData);
   }
 
+  static put(url, data){
+    return axios.put(url, data).catch(ApiService.handleErrors).then(ApiService.getData);
+  }
+
   static handleErrors(err) {
     const {code, name, message} = err.response.data;
     console.error(`API Error: ${code} ${name} - ${message}`);
     throw err;
   }
-
 }
 
 export default ApiService;
