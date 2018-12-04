@@ -13,20 +13,28 @@ class Card extends Component {
     fileName: PropTypes.string
   };
 
+  static fileLocation = '/media/png/Cards/';
+
+  /**
+   * Determine the file name given a card object
+   * @param rank
+   * @param suit
+   * @return {string}
+   */
   static getFileName({rank, suit}) {
     return `/card${_.capitalize(suit)}s${_.capitalize(rank)}.png`;
   }
 
+  /**
+   * JSX: Render the card directly if given a filename, otherwise infer filename from card object
+   */
   render() {
-    const fileLocation = '/media/png/Cards/';
     const {card, fileName} = this.props;
-
     if (fileName) {
-      return (<img src={fileLocation + fileName} alt="card"/>);
+      return (<img src={Card.fileLocation + fileName} alt="card"/>);
     } else {
-      return (<img src={fileLocation + Card.getFileName(card)} alt="card"/>);
+      return (<img src={Card.fileLocation + Card.getFileName(card)} alt="card"/>);
     }
-
   }
 }
 

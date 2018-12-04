@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Card from './card';
-//import GameButton from './game-button';
 import Board from './board';
 import GameService from '../services/game';
 
@@ -25,9 +24,6 @@ class Game extends Component {
 
   /**
    * Conditionally renders the game board
-   * @param playerCard
-   * @param opponentCard
-   * @return {*}
    */
   renderBoard() {
     console.log('state: ', this.state);
@@ -42,7 +38,6 @@ class Game extends Component {
 
   /**
    * Button and Handler for starting and resetting games
-   * @return {*}
    */
   renderStartOrRestButton() {
       async function handleClick(){
@@ -62,6 +57,9 @@ class Game extends Component {
       }
   }
 
+  /**
+   * JSX
+   */
   render() {
     return (
       <div>
