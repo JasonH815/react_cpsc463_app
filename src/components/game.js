@@ -48,8 +48,8 @@ class Game extends Component {
 
     return (
       <div>
-        <div className="container-fluid justify-content-end d-flex flex-column" style={{height: '100vh'}}>
-          <div className="row justify-content-center">
+        <div className="container-fluid justify-content-end d-flex flex-column" style={{height: '95vh'}}>
+          <div className="pt-3 row justify-content-center">
             <div className="col-1">
               <div className="Opponent">
                 <Card fileName="cardBack_green4.png"/>
@@ -61,7 +61,7 @@ class Game extends Component {
               {Game.renderBoard(playerCard, opponentCard)}
             </div>
           </div>
-          <div className="row mt-auto justify-content-center mb-lg-5">
+          <div className="row mt-auto justify-content-center mb-4">
             <div className="col-1">
               <div className="Player" onClick={GameService.createGame.bind(this)}>
                 <Card fileName="cardBack_blue4.png"/>
@@ -69,7 +69,7 @@ class Game extends Component {
             </div>
           </div>
           <div className="row fixed-bottom bg-dark">
-            <div className="col pl-5">
+            <div className="col pl-4 p-2">
               <button type="button" className="btn btn-danger">Reset</button>
             </div>
           </div>
