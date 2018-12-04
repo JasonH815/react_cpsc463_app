@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 class Card extends Component {
@@ -13,7 +14,7 @@ class Card extends Component {
   };
 
   static getFileName({rank, suit}) {
-    return `/card${suit}s${rank}.png`;
+    return `/card${_.capitalize(suit)}s${_.capitalize(rank)}.png`;
   }
 
   render() {
