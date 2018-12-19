@@ -14,10 +14,16 @@ class Game extends Component {
     };
   }
 
-  // TODO add unit test w/ mocha
-  // TODO call selenium from node
-  // TODO add unit test using selenium
+  // TODO fix error with game reset
   // TODO Display message when out of cards
+  // TODO Low Res Screen fixes
+  // TODO better front-end build step (maybe use docker?)
+
+  // TODO add unit test w/ mocha
+  // TODO add unit test using selenium
+
+  // TODO call selenium from node
+
 
 
   /**
@@ -37,21 +43,21 @@ class Game extends Component {
    * Button and Handler for starting and resetting games
    */
   renderStartOrRestButton() {
-      async function handleClick(){
-        const {player, opponent, game} = await GameService.resetGame(this.state.game);
-        this.setState({
-          gameStarted: true,
-          player,
-          opponent,
-          game
-        })
-      }
+    async function handleClick(){
+      const {player, opponent, game} = await GameService.resetGame(this.state.game);
+      this.setState({
+        gameStarted: true,
+        player,
+        opponent,
+        game
+      });
+    }
 
-      if(!this.state.gameStarted) {
-        return <button type="button" className="btn btn-success" onClick={handleClick.bind(this)}>Start Game</button>
-      } else {
-        return <button type="button" className="btn btn-warning" onClick={handleClick.bind(this)}>Reset</button>
-      }
+    if(!this.state.gameStarted) {
+      return <button type="button" className="btn btn-success" onClick={handleClick.bind(this)}>Start Game</button>
+    } else {
+      return <button type="button" className="btn btn-warning" onClick={handleClick.bind(this)}>Reset</button>
+    }
   }
 
   async handleNextCard(event) {

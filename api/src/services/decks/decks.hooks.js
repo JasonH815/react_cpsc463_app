@@ -34,13 +34,13 @@ function validateDeckUpdate(context) {
   const {updateMethods} = context.service;
   const validMethods = Object.keys(updateMethods).map(k => updateMethods[k]);
   if(!method || typeof method !== 'string' || !validMethods.find(m => m === method)) {
-    throw new BadRequest('Missing "method" field for deck update')
+    throw new BadRequest('Missing "method" field for deck update');
   }
   if(!validMethods.find(m => m === method)) {
-    throw new NotImplemented(`Invalid method "${method}"`)
+    throw new NotImplemented(`Invalid method "${method}"`);
   }
 
-  return context
+  return context;
 }
 
 /**
@@ -50,7 +50,7 @@ function validateDeckUpdate(context) {
  */
 async function getDeck(context) {
   context.data.deck = await context.service.get(context.id);
-  return context
+  return context;
 }
 
 /**
@@ -64,7 +64,7 @@ async function validateDeckNext(context) {
   const currentIndex = context.data.deck.currentIndex;
   if (method === 'next') {
     if(currentIndex + 1 >= numCards) {
-      throw new BadRequest('Cannot get next card: Deck has no more cards')
+      throw new BadRequest('Cannot get next card: Deck has no more cards');
     }
   }
 }

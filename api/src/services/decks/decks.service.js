@@ -11,7 +11,7 @@ class DecksService extends MongoService{
     this.ranks = await app.service('cards/ranks').find();
     this.updateMethods = {
       NEXT: 'NEXT'
-    }
+    };
   }
 
   /**
@@ -39,7 +39,7 @@ class DecksService extends MongoService{
     const {method} = data;
     const updateMethods = this.updateMethods;
     switch (method) {
-      case updateMethods.NEXT: return this._nextCard(id, data, params);
+    case updateMethods.NEXT: return this._nextCard(id, data, params);
     }
   }
 
@@ -54,7 +54,7 @@ class DecksService extends MongoService{
     const deck = data.deck;
     const currentIndex = deck.currentIndex + 1;
     const currentCard = await cardsService.get(deck.cards[currentIndex]);
-    return this.patch(id, {currentIndex, currentCard})
+    return this.patch(id, {currentIndex, currentCard});
   }
 
   /**

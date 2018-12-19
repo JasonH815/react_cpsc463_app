@@ -25,27 +25,27 @@ class Board extends Component {
   getPlayerClassText() {
     let className = 'glow-effect rounded';
     if(this.getScore() > 0) {
-      className += ' winner'
+      className += ' winner';
     }
-    return className
+    return className;
   }
 
   getOpponentClassText() {
     let className = 'glow-effect rounded';
     if(this.getScore() < 0) {
-      className += ' winner'
+      className += ' winner';
     }
-    return className
+    return className;
   }
 
   getResultText() {
     const score = this.getScore();
     if (score > 0) {
-      return "YOU WIN!"
+      return 'YOU WIN!';
     } else if(score < 0) {
-      return "Better luck next time..."
+      return 'Better luck next time...';
     } else {
-      return "It's a tie game!"
+      return 'It\'s a tie game!';
     }
   }
 
