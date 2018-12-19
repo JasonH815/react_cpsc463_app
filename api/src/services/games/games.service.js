@@ -1,21 +1,23 @@
 // Initializes the `game` service on path `/game`
 const { Service: MongoService } = require('feathers-mongodb');
 const hooks = require('./games.hooks');
+const { ObjectId } = require('mongodb');
 
 class GamesService extends MongoService {
   setup(app){
     this.app = app;
   }
   async remove(id, params){
-    const decks = await this.app.service('decks').remove(id, params);
-    const cards = await this.app.service('cards').remove(id, params);
-    const players = await this.app.service('players').remove(id, params);
-    const games = await super.remove(id, params);
+    const game = await super.remove(id, params);
+    const cards = await this.app.service('cards').remove(null, {query: {gameId: id}});
+    const decks = await this.app.service('decks').remove(null, {query: {gameId: id}});
+    const players = await this.app.service('players').remove(null, {query: {_id: {$in: [ObjectId(game.playerId), ObjectId(game.opponentId)]}}});
+
     return {
       decks,
       cards,
       players,
-      games
+      games: [game]
     };
   }
 }
